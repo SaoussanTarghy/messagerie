@@ -35,6 +35,9 @@ public class WebSocketClientHandler {
                 case "LOGIN_REQUEST":
                     handleLogin(request);
                     break;
+                case "REGISTER_REQUEST":
+                    handleRegister(request);
+                    break;
                 case "MESSAGE_SEND":
                     handleMessage(request);
                     break;
@@ -78,6 +81,27 @@ public class WebSocketClientHandler {
             }
         } else {
             send(JsonProtocol.errorResponse("Invalid credentials or banned."));
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void handleRegister(Map<String, Object> request) {
+        Map<String, String> data = (Map<String, String>) request.get("payload");
+        String username = data.get("username");
+        String email = data.get("email");
+        String password = data.get("password");
+
+        User newUser = userDAO.registerUser(username, email, password);
+        if (newUser != null) {
+            this.user = newUser;
+            logDAO.log(user.getId(), "register");
+
+            send(JsonProtocol.registerResponse(user));
+
+            // Broadcast user list update to all clients
+            WebSocketServer.broadcastToAll(JsonProtocol.userListUpdate(userDAO.getAllUsers()));
+        } else {
+            send(JsonProtocol.errorResponse("Username or email already exists."));
         }
     }
 

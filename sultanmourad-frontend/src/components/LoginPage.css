@@ -120,6 +120,23 @@
 
 .login-footer p {
   color: rgba(255, 255, 255, 0.5);
-  font-size: 0.8rem;
-  margin: 5px 0;
+  font-size: 0.9rem;
+  margin: 0 0 10px 0;
+}
+
+.switch-button {
+  background: transparent;
+  border: 1px solid rgba(124, 58, 237, 0.5);
+  color: #7c3aed;
+  padding: 10px 24px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.switch-button:hover {
+  background: rgba(124, 58, 237, 0.1);
+  border-color: #7c3aed;
 }

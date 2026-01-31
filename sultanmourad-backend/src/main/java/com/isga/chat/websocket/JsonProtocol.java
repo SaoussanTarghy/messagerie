@@ -17,7 +17,7 @@ import java.util.Map;
  * Mirrors the NetworkPackage types for WebSocket communication.
  */
 public class JsonProtocol {
-    
+
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
     // Parse incoming JSON message
@@ -25,7 +25,7 @@ public class JsonProtocol {
         JSONObject obj = new JSONObject(json);
         Map<String, Object> result = new HashMap<>();
         result.put("type", obj.getString("type"));
-        
+
         if (obj.has("payload")) {
             Object payload = obj.get("payload");
             if (payload instanceof JSONObject) {
@@ -50,6 +50,14 @@ public class JsonProtocol {
         return obj.toString();
     }
 
+    // Create JSON for register response
+    public static String registerResponse(User user) {
+        JSONObject obj = new JSONObject();
+        obj.put("type", "REGISTER_RESPONSE");
+        obj.put("payload", userToJson(user));
+        return obj.toString();
+    }
+
     // Create JSON for error response
     public static String errorResponse(String message) {
         JSONObject obj = new JSONObject();
@@ -62,7 +70,7 @@ public class JsonProtocol {
     public static String messageBroadcast(Message msg) {
         JSONObject obj = new JSONObject();
         obj.put("type", "MESSAGE_BROADCAST");
-        
+
         JSONObject payload = new JSONObject();
         payload.put("id", msg.getId());
         payload.put("userId", msg.getUserId());
@@ -79,7 +87,7 @@ public class JsonProtocol {
     public static String userListUpdate(List<User> users) {
         JSONObject obj = new JSONObject();
         obj.put("type", "USER_LIST_UPDATE");
-        
+
         JSONArray usersArray = new JSONArray();
         for (User user : users) {
             usersArray.put(userToJson(user));

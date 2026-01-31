@@ -2,7 +2,7 @@ import { useState } from 'react';
 import wsService from '../services/websocket';
 import './LoginPage.css';
 
-function LoginPage({ onLoginSuccess }) {
+function LoginPage({ onLoginSuccess, onSwitchToRegister }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -78,8 +78,10 @@ function LoginPage({ onLoginSuccess }) {
                 </form>
 
                 <div className="login-footer">
-                    <p>Default users: admin, mod, user1, user2</p>
-                    <p>Password: password123</p>
+                    <p>Don't have an account?</p>
+                    <button className="switch-button" onClick={onSwitchToRegister}>
+                        Create Account
+                    </button>
                 </div>
             </div>
         </div>

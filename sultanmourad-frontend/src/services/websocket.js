@@ -10,6 +10,7 @@ class WebSocketService {
     this.socket = null;
     this.listeners = {
       onLoginResponse: null,
+      onRegisterResponse: null,
       onMessage: null,
       onUserListUpdate: null,
       onError: null,
@@ -70,6 +71,11 @@ class WebSocketService {
             this.listeners.onError(message.payload);
           }
           break;
+        case 'REGISTER_RESPONSE':
+          if (this.listeners.onRegisterResponse) {
+            this.listeners.onRegisterResponse(message.payload);
+          }
+          break;
         default:
           console.log('Unknown message type:', message.type);
       }
@@ -92,6 +98,12 @@ class WebSocketService {
   async login(username, password) {
     const hashedPassword = await this.hashPassword(password);
     this.send('LOGIN_REQUEST', { username, password: hashedPassword });
+  }
+
+  // Register a new user
+  async register(username, email, password) {
+    const hashedPassword = await this.hashPassword(password);
+    this.send('REGISTER_REQUEST', { username, email, password: hashedPassword });
   }
 
   // Send chat message
