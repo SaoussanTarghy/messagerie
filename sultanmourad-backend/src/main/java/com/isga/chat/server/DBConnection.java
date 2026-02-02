@@ -7,22 +7,32 @@ import java.sql.Statement;
 
 public class DBConnection {
     private static final String URL = "jdbc:sqlite:isga_chat.db";
-    private static Connection connection = null;
+    private static boolean initialized = false;
 
+    /**
+     * Get a new connection for each request.
+     * This is thread-safe as each thread gets its own connection.
+     */
     public static Connection getConnection() throws SQLException {
-        if (connection == null || connection.isClosed()) {
-            try {
-                Class.forName("org.sqlite.JDBC");
-                connection = DriverManager.getConnection(URL);
-                initializeDatabase();
-            } catch (ClassNotFoundException e) {
-                throw new SQLException("SQLite Driver not found", e);
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection connection = DriverManager.getConnection(URL);
+
+            // Initialize database tables if not done yet
+            synchronized (DBConnection.class) {
+                if (!initialized) {
+                    initializeDatabase(connection);
+                    initialized = true;
+                }
             }
+
+            return connection;
+        } catch (ClassNotFoundException e) {
+            throw new SQLException("SQLite Driver not found", e);
         }
-        return connection;
     }
 
-    private static void initializeDatabase() throws SQLException {
+    private static void initializeDatabase(Connection connection) throws SQLException {
         String createUserTable = """
                     CREATE TABLE IF NOT EXISTS USER (
                         ID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -58,10 +68,38 @@ public class DBConnection {
                     )
                 """;
 
+        String createContactTable = """
+                    CREATE TABLE IF NOT EXISTS CONTACT (
+                        ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                        USER_ID INTEGER NOT NULL,
+                        CONTACT_USER_ID INTEGER NOT NULL,
+                        CONTACT_NAME TEXT,
+                        CREATED_AT TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        FOREIGN KEY (USER_ID) REFERENCES USER(ID),
+                        FOREIGN KEY (CONTACT_USER_ID) REFERENCES USER(ID),
+                        UNIQUE(USER_ID, CONTACT_USER_ID)
+                    )
+                """;
+
+        String createPrivateMessageTable = """
+                    CREATE TABLE IF NOT EXISTS PRIVATE_MESSAGE (
+                        ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                        SENDER_ID INTEGER NOT NULL,
+                        RECEIVER_ID INTEGER NOT NULL,
+                        CONTENT TEXT NOT NULL,
+                        TIMESTAMP TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        IS_READ INTEGER DEFAULT 0,
+                        FOREIGN KEY (SENDER_ID) REFERENCES USER(ID),
+                        FOREIGN KEY (RECEIVER_ID) REFERENCES USER(ID)
+                    )
+                """;
+
         try (Statement stmt = connection.createStatement()) {
             stmt.execute(createUserTable);
             stmt.execute(createMessageTable);
             stmt.execute(createLogTable);
+            stmt.execute(createContactTable);
+            stmt.execute(createPrivateMessageTable);
 
             // Check if admin exists, if not, insert seed data
             var rs = stmt.executeQuery("SELECT COUNT(*) FROM USER WHERE USERNAME = 'admin'");
