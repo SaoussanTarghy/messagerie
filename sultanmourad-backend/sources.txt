@@ -1,0 +1,12 @@
+C:\Users\pc\Desktop\New folder (2)\sultanmourad-backend\common\src\main\java\com\isga\chat\common\Message.java
+C:\Users\pc\Desktop\New folder (2)\sultanmourad-backend\common\src\main\java\com\isga\chat\common\NetworkPackage.java
+C:\Users\pc\Desktop\New folder (2)\sultanmourad-backend\common\src\main\java\com\isga\chat\common\User.java
+C:\Users\pc\Desktop\New folder (2)\sultanmourad-backend\src\main\java\com\isga\chat\dao\LogDAO.java
+C:\Users\pc\Desktop\New folder (2)\sultanmourad-backend\src\main\java\com\isga\chat\dao\MessageDAO.java
+C:\Users\pc\Desktop\New folder (2)\sultanmourad-backend\src\main\java\com\isga\chat\dao\UserDAO.java
+C:\Users\pc\Desktop\New folder (2)\sultanmourad-backend\src\main\java\com\isga\chat\server\ClientHandler.java
+C:\Users\pc\Desktop\New folder (2)\sultanmourad-backend\src\main\java\com\isga\chat\server\DBConnection.java
+C:\Users\pc\Desktop\New folder (2)\sultanmourad-backend\src\main\java\com\isga\chat\server\ServerMain.java
+C:\Users\pc\Desktop\New folder (2)\sultanmourad-backend\src\main\java\com\isga\chat\websocket\JsonProtocol.java
+C:\Users\pc\Desktop\New folder (2)\sultanmourad-backend\src\main\java\com\isga\chat\websocket\WebSocketClientHandler.java
+C:\Users\pc\Desktop\New folder (2)\sultanmourad-backend\src\main\java\com\isga\chat\websocket\WebSocketServer.java
