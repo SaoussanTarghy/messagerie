@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Academic Planning Data File
+    
+    This XML file stores all academic course information including:
+    - Course codes and names
+    - Instructor information
+    - Exam dates
+    - Reminder settings (days before exam to alert)
+    
+    Why XML?
+    - Human-readable and easy to edit without recompiling the application
+    - Standardized format with wide tool support
+    - Platform-independent data storage
+    - Suitable for academic projects where data changes frequently
+-->
+<academicPlanning>
+    <courses>
+        <!-- 
+            Each course contains:
+            - code: Unique course identifier
+            - name: Full course name
+            - instructor: Professor/teacher name
+            - examDate: Date of the exam (format: YYYY-MM-DD)
+            - reminderDaysBefore: Number of days before exam to trigger reminder
+        -->
+        
+        <course>
+            <code>CS101</code>
+            <name>Introduction to Programming</name>
+            <instructor>Dr. Sarah Smith</instructor>
+            <examDate>2026-03-15</examDate>
+            <reminderDaysBefore>7</reminderDaysBefore>
+        </course>
+        
+        <course>
+            <code>CS201</code>
+            <name>Data Structures and Algorithms</name>
+            <instructor>Prof. John Johnson</instructor>
+            <examDate>2026-03-20</examDate>
+            <reminderDaysBefore>5</reminderDaysBefore>
+        </course>
+        
+        <course>
+            <code>CS301</code>
+            <name>Database Management Systems</name>
+            <instructor>Dr. Emily Davis</instructor>
+            <examDate>2026-03-25</examDate>
+            <reminderDaysBefore>7</reminderDaysBefore>
+        </course>
+        
+        <course>
+            <code>MATH205</code>
+            <name>Discrete Mathematics</name>
+            <instructor>Prof. Michael Brown</instructor>
+            <examDate>2026-02-18</examDate>
+            <reminderDaysBefore>10</reminderDaysBefore>
+        </course>
+        
+        <course>
+            <code>ENG102</code>
+            <name>Technical Writing</name>
+            <instructor>Dr. Linda Martinez</instructor>
+            <examDate>2026-02-12</examDate>
+            <reminderDaysBefore>3</reminderDaysBefore>
+        </course>
+    </courses>
+</academicPlanning>

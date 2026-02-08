@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    System Configuration File
+    
+    This XML file contains application-wide settings for the Academic Planning System.
+    
+    Why use XML for configuration?
+    - Externalized configuration: Settings can be changed without code modification
+    - Easy to read and maintain by non-programmers
+    - Standard format for enterprise applications
+    - Can be validated against XML Schema for correctness
+-->
+<configuration>
+    <!-- 
+        Timer Settings
+        Controls when the EJB Timer executes the daily exam check
+    -->
+    <timerSettings>
+        <!-- Hour of day to run check (24-hour format, 0-23) -->
+        <checkHour>9</checkHour>
+        
+        <!-- Minute of hour to run check (0-59) -->
+        <checkMinute>0</checkMinute>
+        
+        <!-- Enable or disable the scheduled timer -->
+        <enabled>true</enabled>
+    </timerSettings>
+    
+    <!-- 
+        Notification Settings
+        Controls how reminders are displayed
+    -->
+    <notificationSettings>
+        <!-- Enable console output for reminders -->
+        <consoleNotificationsEnabled>true</consoleNotificationsEnabled>
+        
+        <!-- Include detailed course information in reminders -->
+        <showDetailedInfo>true</showDetailedInfo>
+    </notificationSettings>
+    
+    <!-- 
+        System Settings
+        General application configuration
+    -->
+    <systemSettings>
+        <!-- Application time zone -->
+        <timeZone>Europe/Paris</timeZone>
+        
+        <!-- Date format for display -->
+        <dateFormat>dd/MM/yyyy</dateFormat>
+        
+        <!-- Minimum days before exam to show in daily report -->
+        <minDaysToReport>0</minDaysToReport>
+        
+        <!-- Maximum days before exam to show in daily report -->
+        <maxDaysToReport>30</maxDaysToReport>
+    </systemSettings>
+</configuration>
