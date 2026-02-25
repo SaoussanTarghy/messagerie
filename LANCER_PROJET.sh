@@ -1,104 +1,157 @@
 #!/bin/bash
 
-# ========================================
-# Script de Lancement du Projet
-# Planification Académique
-# ========================================
+# =========================================
+#   LANCEMENT COMPLET DU PROJET
+#   Planification Académique
+# =========================================
 
+set -e
+
+TOMCAT_HOME="/opt/homebrew/Cellar/tomcat@10/10.1.52/libexec"
+TOMCAT_BIN="$TOMCAT_HOME/bin/catalina.sh"
+WEBAPPS="$TOMCAT_HOME/webapps"
+PROJECT_DIR="$(cd "$(dirname "$0")" && pwd)"
+FRONTEND_DIR="$PROJECT_DIR/frontend"
+DB_NAME="planification_academique"
+WAR_NAME="PlanificationAcademique"
+
+echo ""
 echo "========================================="
-echo "🚀 LANCEMENT DU PROJET"
-echo "Planification Académique"
+echo "   🚀 LANCEMENT DU PROJET"
+echo "   Planification Académique"
 echo "========================================="
 echo ""
 
-# Fonction pour afficher les messages
-print_step() {
-    echo ""
-    echo "📌 $1"
-    echo "---"
-}
-
-print_error() {
-    echo "❌ ERREUR: $1"
-}
-
-print_success() {
-    echo "✅ $1"
-}
-
-# Vérifier Java
-print_step "1. Vérification de Java"
-if command -v java &> /dev/null; then
-    java -version
-    print_success "Java est installé"
-else
-    print_error "Java n'est pas installé !"
-    echo "Installez Java JDK 1.8+ avant de continuer"
+# -------- 1. Vérification Java --------
+echo "📌 1. Vérification de Java..."
+if ! command -v java &> /dev/null; then
+    echo "❌ Java n'est pas installé. Installer Java 11+ et réessayer."
     exit 1
 fi
+java -version
+echo "✅ Java OK"
+echo ""
 
-# Vérifier MySQL
-print_step "2. Vérification de MySQL"
-if command -v mysql &> /dev/null; then
-    mysql --version
-    print_success "MySQL est installé"
-else
-    print_error "MySQL n'est pas trouvé !"
-    echo "Installez MySQL Server 8.0+ avant de continuer"
+# -------- 2. Vérification Maven --------
+echo "📌 2. Vérification de Maven..."
+if ! command -v mvn &> /dev/null; then
+    echo "❌ Maven n'est pas installé."
+    echo "   Installer avec: brew install maven"
+    exit 1
 fi
-
-# Options de lancement
-print_step "3. Options de Lancement"
-echo ""
-echo "Choisissez une méthode de lancement :"
-echo ""
-echo "A) Avec Maven (recommandé - nécessite Maven installé)"
-echo "   $ mvn clean package"
-echo "   $ mvn tomcat7:deploy"
-echo ""
-echo "B) Compilation manuelle + Tomcat"
-echo "   1. Télécharger les JARs nécessaires :"
-echo "      - mysql-connector-java-8.0.33.jar"
-echo "      - javax.servlet-api-4.0.1.jar"
-echo "      - jstl-1.2.jar"
-echo "   2. Compiler les sources Java"
-echo "   3. Créer le fichier WAR"
-echo "   4. Déployer sur Tomcat"
-echo ""
-echo "C) Utiliser un IDE (Eclipse, IntelliJ, NetBeans)"
-echo "   1. Importer le projet Maven"
-echo "   2. Configurer Tomcat dans l'IDE"
-echo "   3. Run As > Run on Server"
+mvn -version
+echo "✅ Maven OK"
 echo ""
 
-print_step "4. Prochaines Étapes"
-echo ""
-echo "1️⃣  Installer les prérequis manquants (voir ci-dessus)"
-echo ""
-echo "2️⃣  Créer la base de données MySQL :"
-echo "    $ mysql -u root -p < database/planification.sql"
-echo ""
-echo "3️⃣  Configurer la connexion dans :"
-echo "    src/utils/DatabaseConnection.java"
-echo "    (modifier USER et PASSWORD)"
-echo ""
-echo "4️⃣  Compiler et déployer selon la méthode choisie"
-echo ""
-echo "5️⃣  Accéder à l'application :"
-echo "    http://localhost:8080/PlanificationAcademique/"
+# -------- 3. Vérification Node.js / npm --------
+echo "📌 3. Vérification de Node.js/npm..."
+if ! command -v npm &> /dev/null; then
+    echo "❌ Node.js/npm n'est pas installé."
+    echo "   Installer depuis: https://nodejs.org"
+    exit 1
+fi
+node --version && npm --version
+echo "✅ Node.js OK"
 echo ""
 
-print_step "📚 Documentation Complète"
-echo ""
-echo "Pour plus de détails, consultez :"
-echo "• README.md                  - Vue d'ensemble"
-echo "• docs/INSTALLATION.md       - Guide d'installation détaillé"
-echo "• docs/GUIDE_DEMONSTRATION.md - Guide de démonstration"
+# -------- 4. Vérification MySQL --------
+echo "📌 4. Vérification de MySQL..."
+if ! command -v mysql &> /dev/null; then
+    echo "❌ MySQL n'est pas installé."
+    echo "   Installer avec: brew install mysql"
+    exit 1
+fi
+mysql --version
+echo "✅ MySQL OK"
 echo ""
 
+# -------- 5. Vérification Tomcat --------
+echo "📌 5. Vérification de Tomcat..."
+if [ ! -f "$TOMCAT_BIN" ]; then
+    echo "⚠️  Tomcat non trouvé à $TOMCAT_BIN"
+    echo "   Installation automatique via Homebrew..."
+    brew install tomcat@10
+    echo "✅ Tomcat installé"
+else
+    echo "✅ Tomcat trouvé"
+fi
+echo ""
+
+# -------- 6. Démarrage MySQL --------
+echo "📌 6. Démarrage de MySQL..."
+brew services start mysql 2>/dev/null || true
+sleep 2
+echo "✅ MySQL démarré"
+echo ""
+
+# -------- 7. Création Base de Données --------
+echo "📌 7. Configuration de la base de données..."
+mysql -u root -e "CREATE DATABASE IF NOT EXISTS $DB_NAME CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;" 2>/dev/null
+mysql -u root $DB_NAME < "$PROJECT_DIR/database/planification.sql" 2>/dev/null || true
+echo "✅ Base de données prête"
+echo ""
+
+# -------- 8. Installation des dépendances npm --------
+echo "📌 8. Installation des dépendances npm (frontend)..."
+cd "$FRONTEND_DIR"
+npm install --silent
+echo "✅ Dépendances npm installées"
+echo ""
+
+# -------- 9. Compilation Maven (WAR) --------
+echo "📌 9. Compilation du projet Java (WAR)..."
+cd "$PROJECT_DIR"
+mvn clean package -q
+echo "✅ WAR compilé: target/$WAR_NAME.war"
+echo ""
+
+# -------- 10. Arrêt Tomcat si déjà lancé --------
+echo "📌 10. Redémarrage de Tomcat..."
+export CATALINA_HOME="$TOMCAT_HOME"
+"$TOMCAT_BIN" stop 2>/dev/null || true
+sleep 2
+
+# -------- 11. Déploiement WAR --------
+cp "$PROJECT_DIR/target/$WAR_NAME.war" "$WEBAPPS/"
+echo "✅ WAR déployé"
+
+# -------- 12. Démarrage Tomcat --------
+"$TOMCAT_BIN" start
+sleep 4
+echo "✅ Tomcat démarré sur http://localhost:8080/$WAR_NAME/"
+echo ""
+
+# -------- 13. Démarrage Frontend React --------
+echo "📌 11. Démarrage du Frontend React..."
+cd "$FRONTEND_DIR"
+npm run dev &
+FRONTEND_PID=$!
+sleep 3
+echo "✅ Frontend React démarré sur http://localhost:5173/"
+echo ""
+
+# -------- Résumé --------
 echo "========================================="
-echo "✨ Projet Prêt à Être Lancé !"
+echo "✨ PROJET LANCÉ AVEC SUCCÈS !"
 echo "========================================="
 echo ""
-echo "Besoin d'aide ? Consultez docs/INSTALLATION.md"
+echo "🌐 ACCÈS À L'APPLICATION :"
 echo ""
+echo "  ➜  Frontend React (Calendrier) :"
+echo "     http://localhost:5173/"
+echo ""
+echo "  ➜  Backend Java (JSP) :"
+echo "     http://localhost:8080/$WAR_NAME/"
+echo ""
+echo "Pour arrêter :"
+echo "  - Frontend : Ctrl+C dans ce terminal"
+echo "  - Tomcat   : $TOMCAT_BIN stop"
+echo "  - MySQL    : brew services stop mysql"
+echo ""
+
+# Ouvrir automatiquement le navigateur sur le frontend React
+sleep 2
+open "http://localhost:5173/" 2>/dev/null || xdg-open "http://localhost:5173/" 2>/dev/null || true
+
+# Garder le terminal ouvert (frontend tourne en foreground)
+wait $FRONTEND_PID
