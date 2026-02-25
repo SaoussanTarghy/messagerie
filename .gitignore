@@ -1,0 +1,52 @@
+# Fichiers compilés Java
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+
+# Répertoires de build
+target/
+build/
+bin/
+out/
+dist/
+
+# Logs
+*.log
+logs/
+
+# Configuration IDE
+.settings/
+.classpath
+.project
+.metadata/
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+
+# Maven
+.mvn/
+mvn-wrapper.jar
+mvn-wrapper.properties
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Fichiers temporaires
+*.tmp
+*.bak
+*.swp
+*~
+
+# Base de données locale (si utilisée)
+*.db
+*.sqlite
+
+# Fichiers de configuration sensibles
+config.properties
+database.properties

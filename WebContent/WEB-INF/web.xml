@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+         http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    
+    <display-name>Système de Planification Académique</display-name>
+    <description>Application de gestion des ressources et planifications académiques</description>
+    
+    <!-- Page d'accueil par défaut -->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+    
+    <!-- Configuration du servlet principal -->
+    <servlet>
+        <servlet-name>RessourceServlet</servlet-name>
+        <servlet-class>servlets.RessourceServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>RessourceServlet</servlet-name>
+        <url-pattern>/ressources</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Pages d'erreur personnalisées -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/errors/404.jsp</location>
+    </error-page>
+    
+    <error-page>
+        <error-code>500</error-code>
+        <location>/errors/500.jsp</location>
+    </error-page>
+    
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/errors/500.jsp</location>
+    </error-page>
+    
+    <!-- Configuration de la session -->
+    <session-config>
+        <session-timeout>30</session-timeout> <!-- 30 minutes -->
+    </session-config>
+    
+    <!-- Encodage UTF-8 pour tous les fichiers -->
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <page-encoding>UTF-8</page-encoding>
+        </jsp-property-group>
+    </jsp-config>
+    
+    <!-- Paramètres de contexte (optionnel) -->
+    <context-param>
+        <param-name>app.version</param-name>
+        <param-value>1.0.0</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>app.name</param-name>
+        <param-value>Planification Académique</param-value>
+    </context-param>
+</web-app>
