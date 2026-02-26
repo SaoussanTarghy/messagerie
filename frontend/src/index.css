@@ -112,6 +112,447 @@
   .alert-info {
     @apply bg-blue-50 border border-blue-200 text-blue-800 rounded-lg p-4 flex items-start gap-3;
   }
+
+  /* ==================== Navbar Auth ==================== */
+  .navbar-separator {
+    @apply w-px h-6 bg-white/20 mx-1;
+  }
+
+  .navbar-user {
+    @apply flex items-center gap-2 text-sm text-white/90 font-medium;
+  }
+
+  .navbar-user-name {
+    @apply hidden sm:block max-w-[120px] truncate;
+  }
+
+  .navbar-role-badge {
+    @apply flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold uppercase;
+  }
+
+  .navbar-role-student {
+    @apply bg-green-500/30 text-green-200;
+  }
+
+  .navbar-role-admin {
+    @apply bg-amber-500/30 text-amber-200;
+  }
+
+  .navbar-logout-btn {
+    @apply flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-white/80 hover:text-white hover:bg-red-500/20 transition-all duration-200 border border-white/10 hover:border-red-400/30;
+  }
+
+  /* ==================== Login Page ==================== */
+  .login-page {
+    @apply min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-indigo-100 via-white to-purple-100;
+  }
+
+  .login-bg {
+    @apply absolute inset-0 pointer-events-none;
+  }
+
+  .login-blob {
+    @apply absolute rounded-full opacity-30 blur-3xl;
+  }
+
+  .login-blob-1 {
+    @apply w-96 h-96 bg-indigo-400 -top-20 -left-20;
+  }
+
+  .login-blob-2 {
+    @apply w-80 h-80 bg-purple-400 -bottom-16 -right-16;
+  }
+
+  .login-container {
+    @apply relative z-10 w-full max-w-md mx-4 bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 p-8;
+  }
+
+  .login-brand {
+    @apply flex flex-col items-center mb-8 text-center;
+  }
+
+  .login-icon-box {
+    @apply w-20 h-20 rounded-2xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg mb-4;
+  }
+
+  .login-icon {
+    @apply text-white;
+  }
+
+  .login-title {
+    @apply text-2xl font-bold text-gray-800;
+  }
+
+  .login-subtitle {
+    @apply text-sm text-gray-500 mt-1;
+  }
+
+  .login-form {
+    @apply space-y-5;
+  }
+
+  .login-error {
+    @apply flex items-center gap-2 bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 text-sm;
+  }
+
+  .login-field {
+    @apply flex flex-col gap-1.5;
+  }
+
+  .login-label {
+    @apply text-sm font-semibold text-gray-700;
+  }
+
+  .login-input-wrapper {
+    @apply relative flex items-center;
+  }
+
+  .login-input-icon {
+    @apply absolute left-3 text-gray-400 pointer-events-none;
+  }
+
+  .login-input {
+    @apply w-full pl-10 pr-10 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200 outline-none transition-all text-sm;
+  }
+
+  .login-eye-btn {
+    @apply absolute right-3 text-gray-400 hover:text-gray-600 transition-colors;
+  }
+
+  .login-btn {
+    @apply w-full py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed;
+  }
+
+  .login-btn-loading {
+    @apply flex items-center justify-center gap-2;
+  }
+
+  .login-demo {
+    @apply mt-6 pt-6 border-t border-gray-100 text-center;
+  }
+
+  .login-demo-title {
+    @apply text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3;
+  }
+
+  .login-demo-accounts {
+    @apply flex gap-2 justify-center mb-2;
+  }
+
+  .login-demo-btn {
+    @apply px-3 py-1.5 rounded-lg text-xs font-medium border transition-all hover:scale-105 cursor-pointer;
+  }
+
+  .login-demo-admin {
+    @apply bg-amber-50 border-amber-200 text-amber-700 hover:bg-amber-100;
+  }
+
+  .login-demo-teacher {
+    @apply bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100;
+  }
+
+  .login-demo-student {
+    @apply bg-green-50 border-green-200 text-green-700 hover:bg-green-100;
+  }
+
+  .login-demo-hint {
+    @apply text-xs text-gray-400 mt-1;
+  }
+
+  /* ==================== Dashboards ==================== */
+  .dashboard-page {
+    @apply max-w-6xl mx-auto px-4 sm:px-6 py-6 space-y-6;
+  }
+
+  .dashboard-hero {
+    @apply rounded-2xl p-6 flex items-center justify-between shadow-lg text-white;
+  }
+
+  .dashboard-hero-student {
+    @apply bg-gradient-to-r from-emerald-600 to-teal-600;
+  }
+
+  .dashboard-hero-admin {
+    @apply bg-gradient-to-r from-indigo-700 to-purple-700;
+  }
+
+  .dashboard-hero-content {
+    @apply flex items-center gap-4;
+  }
+
+  .dashboard-hero-icon {
+    @apply w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center;
+  }
+
+  .dashboard-hero-title {
+    @apply text-2xl font-bold;
+  }
+
+  .dashboard-hero-sub {
+    @apply text-white/80 text-sm mt-0.5;
+  }
+
+  .dashboard-role-badge {
+    @apply flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/20 text-white text-xs font-bold uppercase tracking-wider;
+  }
+
+  .dashboard-role-admin {
+    @apply bg-amber-400/30;
+  }
+
+  /* Stats Grid */
+  .stats-grid {
+    @apply grid grid-cols-2 sm:grid-cols-4 gap-4;
+  }
+
+  .stat-card {
+    @apply rounded-2xl p-5 flex items-center gap-3 text-white shadow-md;
+  }
+
+  .stat-blue {
+    @apply bg-gradient-to-br from-blue-500 to-blue-600;
+  }
+
+  .stat-green {
+    @apply bg-gradient-to-br from-emerald-500 to-emerald-600;
+  }
+
+  .stat-orange {
+    @apply bg-gradient-to-br from-orange-500 to-orange-600;
+  }
+
+  .stat-purple {
+    @apply bg-gradient-to-br from-purple-500 to-purple-600;
+  }
+
+  .stat-number {
+    @apply text-3xl font-bold block;
+  }
+
+  .stat-label {
+    @apply text-white/80 text-xs uppercase tracking-wide;
+  }
+
+  /* Section cards */
+  .section-card {
+    @apply bg-white rounded-2xl shadow-md p-6 border border-gray-100;
+  }
+
+  .section-title {
+    @apply text-lg font-bold text-gray-800 flex items-center gap-2 mb-4;
+  }
+
+  .section-header {
+    @apply flex items-center justify-between mb-4;
+  }
+
+  /* Loading / Empty / Error states */
+  .loading-state {
+    @apply flex flex-col items-center gap-3 py-12 text-gray-400;
+  }
+
+  .error-state {
+    @apply flex items-center gap-2 text-red-600 bg-red-50 rounded-xl p-4;
+  }
+
+  .empty-state-card {
+    @apply flex flex-col items-center gap-2 py-12 text-gray-400;
+  }
+
+  .empty-icon {
+    @apply text-gray-300;
+  }
+
+  .empty-text {
+    @apply text-gray-400 italic text-sm;
+  }
+
+  /* Spinner */
+  .spinner {
+    @apply w-8 h-8 rounded-full border-4 border-gray-200 border-t-indigo-500 animate-spin;
+  }
+
+  .spinner-sm {
+    @apply w-4 h-4 rounded-full border-2 border-white/40 border-t-white animate-spin inline-block;
+  }
+
+  /* Planification list (étudiant) */
+  .planif-list {
+    @apply space-y-3;
+  }
+
+  .planif-item {
+    @apply flex items-center justify-between p-4 rounded-xl border border-gray-100 hover:border-indigo-200 hover:bg-indigo-50 transition-all;
+  }
+
+  .planif-item-left {
+    @apply flex items-center gap-4;
+  }
+
+  .planif-date {
+    @apply text-center bg-indigo-100 rounded-xl px-3 py-2 min-w-[56px];
+  }
+
+  .planif-day {
+    @apply block text-xs font-semibold text-indigo-700;
+  }
+
+  .planif-hour {
+    @apply block text-xs text-indigo-500;
+  }
+
+  .planif-info {
+    @apply flex flex-col;
+  }
+
+  .planif-name {
+    @apply font-semibold text-gray-800 text-sm;
+  }
+
+  .planif-meta {
+    @apply text-xs text-gray-500 mt-0.5;
+  }
+
+  /* Status badges */
+  .status-badge {
+    @apply px-2.5 py-1 rounded-full text-xs font-semibold;
+  }
+
+  .badge-planifie {
+    @apply bg-blue-100 text-blue-700;
+  }
+
+  .badge-encours,
+  .badge-en_cours {
+    @apply bg-orange-100 text-orange-700;
+  }
+
+  .badge-termine,
+  .badge-planifie {
+    @apply bg-green-100 text-green-700;
+  }
+
+  .badge-annule {
+    @apply bg-red-100 text-red-600;
+  }
+
+  /* Quick action link */
+  .quick-action-card {
+    @apply bg-white rounded-2xl border border-gray-100 shadow-sm;
+  }
+
+  .quick-action-link {
+    @apply flex items-center gap-2 p-4 text-indigo-600 font-medium hover:bg-indigo-50 rounded-2xl transition-all;
+  }
+
+  /* Admin styles */
+  .admin-tabs {
+    @apply flex gap-2 flex-wrap;
+  }
+
+  .admin-tab-btn {
+    @apply px-4 py-2 rounded-xl text-sm font-medium border border-gray-200 bg-white text-gray-600 hover:bg-gray-50 transition-all;
+  }
+
+  .admin-tab-btn.active {
+    @apply bg-indigo-600 text-white border-indigo-600 shadow-md;
+  }
+
+  .admin-msg {
+    @apply rounded-xl px-4 py-3 text-sm font-medium;
+  }
+
+  .admin-msg-success {
+    @apply bg-green-50 text-green-700 border border-green-200;
+  }
+
+  .admin-msg-error {
+    @apply bg-red-50 text-red-700 border border-red-200;
+  }
+
+  .admin-table-wrapper {
+    @apply overflow-x-auto rounded-xl border border-gray-100;
+  }
+
+  .admin-table {
+    @apply w-full text-sm;
+  }
+
+  .admin-table thead tr {
+    @apply bg-gray-50 border-b border-gray-200;
+  }
+
+  .admin-table th {
+    @apply px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide;
+  }
+
+  .admin-table td {
+    @apply px-4 py-3 text-gray-700 border-b border-gray-50;
+  }
+
+  .td-id {
+    @apply text-gray-400 font-mono;
+  }
+
+  .td-notes {
+    @apply max-w-[200px] truncate text-gray-500 italic;
+  }
+
+  .td-actions {
+    @apply flex gap-2;
+  }
+
+  .action-btn {
+    @apply p-1.5 rounded-lg transition-all;
+  }
+
+  .action-edit {
+    @apply text-blue-500 hover:bg-blue-50;
+  }
+
+  .action-delete {
+    @apply text-red-500 hover:bg-red-50;
+  }
+
+  .type-badge {
+    @apply px-2 py-0.5 rounded-md text-xs font-semibold uppercase;
+  }
+
+  .type-enseignant {
+    @apply bg-blue-100 text-blue-700;
+  }
+
+  .type-salle {
+    @apply bg-amber-100 text-amber-700;
+  }
+
+  .type-cours {
+    @apply bg-emerald-100 text-emerald-700;
+  }
+
+  .dispo-yes {
+    @apply text-emerald-600 font-bold;
+  }
+
+  .dispo-no {
+    @apply text-red-500 font-bold;
+  }
+
+  .btn-add {
+    @apply flex items-center gap-1 px-4 py-2 rounded-xl bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700 transition-all shadow-md;
+  }
+
+  .overview-grid {
+    @apply grid grid-cols-2 gap-4 mb-4;
+  }
+
+  .overview-item {
+    @apply flex justify-between bg-gray-50 rounded-xl p-3 text-sm;
+  }
+
+  .quick-actions {
+    @apply mt-4;
+  }
 }
 
 @layer utilities {

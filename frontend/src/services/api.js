@@ -9,6 +9,7 @@ const api = axios.create({
     headers: {
         'Content-Type': 'application/json',
     },
+    withCredentials: true, // Envoie les cookies de session Java EE
 });
 
 // Add response interceptor for error handling
@@ -19,5 +20,19 @@ api.interceptors.response.use(
         return Promise.reject(error);
     }
 );
+
+// ==================== Auth API ====================
+
+/** Connecte l'utilisateur et retourne son profil */
+export const authLogin = (email, password) =>
+    api.post('/auth/login', { email, password });
+
+/** Déconnecte l'utilisateur et invalide la session */
+export const authLogout = () =>
+    api.post('/auth/logout');
+
+/** Retourne le profil de l'utilisateur connecté (ou 401) */
+export const authMe = () =>
+    api.get('/auth/me');
 
 export default api;
